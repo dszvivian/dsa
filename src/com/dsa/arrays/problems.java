@@ -8,7 +8,7 @@ public class problems {
 
         int[] a = {3,2,4};
 
-        int[][] b = new int[][];
+//        int[][] b = new int[][];
 
 //        System.out.println(luckyNumbers(b));
 
@@ -114,40 +114,48 @@ public class problems {
 
 
     // LuckyNumber(lowest in row && highest in column)
-//    static List<Integer> luckyNumbers (int[][] matrix) {
-//
-//        List<Integer> ans=new ArrayList<Integer>();
-//
-//
-//        int index = -1;
-//
-//        for(int i=0;i<matrix.length;i++){
-//            int lr = -1;
-//            int lc = -1;
-//            for(int j=0;j<matrix[i].length;j++){
-//                if(matrix[i][j]<lr){
-//                    lr = matrix[i][j];
-//                }else{
-//                    break;
-//                }
-//            }
-//            for(int k=0;k<matrix.length;k++){
-//                if(matrix[k][i]>lc){
-//                    lc=matrix[k][i];
-//                }else{
-//                    break;
-//                }
-//            }
-//
-//            if(lr==lc){
-//                ans.add(lr);
-//            }
-//        }
-//
-//
-//
-//        return ans;
-//    }
+/*    static List<Integer> luckyNumbers (int[][] matrix) {
+
+        List<Integer> ans=new ArrayList<Integer>();
+
+
+        int index = -1;
+
+        for(int i=0;i<matrix.length;i++){
+            int lr = -1;
+            int lc = -1;
+            for(int j=0;j<matrix[i].length;j++){
+                if(matrix[i][j]<lr){
+                    lr = matrix[i][j];
+                }else{
+                    break;
+                }
+            }
+            for(int k=0;k<matrix.length;k++){
+                if(matrix[k][i]>lc){
+                    lc=matrix[k][i];
+                }else{
+                    break;
+                }
+            }
+
+            if(lr==lc){
+                ans.add(lr);
+            }
+        }
+
+
+
+        return ans;
+    }*/
+
+
+
+
+
+
+
+
 
 
 }
