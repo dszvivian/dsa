@@ -8,10 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] a = {1,2,5,7,11};
+        int[] a = {1,1,2};
 
 //        System.out.println(Arrays.toString(twoSum(a,6)));
-        System.out.println(findKthPositive(a,3));
+        System.out.println(singleNonDuplicate(a));
 
 
     }
@@ -79,6 +79,36 @@ public class Main {
         }
 
         return k+start;
+    }
+
+
+    static int singleNonDuplicate(int[] nums) {
+        //https://leetcode.com/problems/single-element-in-a-sorted-array/
+
+        int i1=0,i2=i1+1;
+
+
+
+        if(nums.length==1){
+            return nums[0];
+        }
+
+        while(i1<nums.length-1){
+
+            if(i2==nums.length){
+                return nums[nums.length-1];
+            }
+
+            if(nums[i1]==nums[i2]){
+                i1=i2+1;
+                i2=i1+1;
+            }else{
+                return nums[i1];
+            }
+
+        }
+
+        return -1;
     }
 
 

@@ -6,11 +6,11 @@ public class problems {
 
     public static void main(String[] args) {
 
-        int[] a = {3,2,4};
 
-//        int[][] b = new int[][];
+        int[] a = {2,3,1,1,4};
+        int[] b = {3,2,1,0,4};
 
-//        System.out.println(luckyNumbers(b));
+        System.out.println(plusOne(b));
 
     }
 
@@ -149,6 +149,46 @@ public class problems {
         return ans;
     }*/
 
+
+    //unsolved
+    static boolean canJump(int[] nums) {
+        //https://leetcode.com/problems/jump-game/
+
+        int i = 0;
+
+        while(i<=nums.length){
+            if(nums[i]==nums.length){
+                return true;
+            }else{
+                i+=nums[i];
+            }
+        }
+
+        return false;
+    }
+
+
+    static int plusOne(int[] digits) {
+
+        int counter=digits.length;
+        int n1 = 0;
+        for(int i=0;i<digits.length-1;i++){
+            int c1=digits.length-i;
+            int n2 = digits[i];
+            while(c1>1){
+                n2 *= 10;
+                c1--;
+            }
+            n1+=n2;
+        }
+        n1+=digits[digits.length-1]+1;
+
+
+        return n1;
+
+
+
+    }
 
 
 
