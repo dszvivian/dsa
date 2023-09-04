@@ -4,8 +4,7 @@ public class Recursionlevel1 {
 
     public static void main(String[] args) {
 
-        reverse2(12345);
-        System.out.println(sum);
+        System.out.println(countZeros(100002,0));
 
     }
 
@@ -70,12 +69,28 @@ public class Recursionlevel1 {
         }
     }
 
+    static boolean isPalindrome(int n ){
+        return n == reverse(n);
+    }
+
+
     static int sum = 0;
     static void reverse2(int n){
         if(n==0) return;
         else{
             sum = (sum*10) + (n%10);
             reverse2(n/10);
+        }
+    }
+
+    static int countZeros(int n,int count){
+        if(n==0) return count;
+        else{
+            if((n%10)==0){
+                return countZeros(n/10,count+1);
+            }else{
+                return countZeros(n/10,count);
+            }
         }
     }
 }
