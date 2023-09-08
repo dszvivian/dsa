@@ -7,7 +7,7 @@ public class RecursiveSorting {
 
     public static void main(String[] args) {
         int[] a1 = {12,45,3,-2,56,-33};
-        int[] a2 = {1,2,8,4,5,6};
+        int[] a2 = {6,8,7,2,5,3,1};
         quickSort(a2,0, a2.length-1);
         System.out.println(Arrays.toString(a2));
 
