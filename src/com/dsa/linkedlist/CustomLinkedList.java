@@ -2,6 +2,7 @@ package com.dsa.linkedlist;
 
 public class CustomLinkedList {
 
+
     private Node head,tail;
     public int size;
 
@@ -35,8 +36,6 @@ public class CustomLinkedList {
     }
 
     public void insertAt(int val,int index){
-
-
         if(index==0){
             insertFirst(val);
             return;
@@ -55,42 +54,29 @@ public class CustomLinkedList {
             element.next = n;
             size++;
         }
-
-
     }
 
-
-    //insert using recursion
     public void insertRec(int val,int index){
-        if(index==0){
-            insertFirst(val);
-            return;
-        }else if(index==size){
-            insertLast(val);
-            return;
-        }else {
-
-            Node node = new Node(val);
-
-            Node prev = getNodeRec(index-1,head);
-            Node temp = prev.next;
-            prev.next = node;
-            node.next = temp;
-
-        }
-
+        head = insertRec(val,index,head);
     }
 
 
-    private Node getNodeRec(int index,Node node){
+    //insert using recursion --- 1-based indexing
+    //every recursion call should return the same node
+    private Node insertRec(int val,int index,Node n){
 
         if(index==1){
+            Node node= new Node(val,n);
+            size++;
             return node;
         }
 
-        return getNodeRec(index-1,node.next);
-
+        insertRec(val,index-1,n.next);
+        return n;
     }
+
+
+
 
 
 
@@ -160,6 +146,16 @@ public class CustomLinkedList {
 
     }
 
+    public void displayCustom(Node head){
+        Node element = head;
+        while(element != null){
+            System.out.print(element.value+"-->");
+            element = element.next;
+        }
+        System.out.println("END");
+
+    }
+
     public Node findNode(int value){
 
         Node element = head;
@@ -187,6 +183,10 @@ public class CustomLinkedList {
         private int value;
         private Node next;
 
+        public Node(){
+
+        }
+
         public Node(int value){
             this.value =value;
         }
@@ -196,6 +196,74 @@ public class CustomLinkedList {
             this.next = next;
         }
     }
+
+    public static void main(String[] args) {
+
+        CustomLinkedList list = new CustomLinkedList();
+
+        list.insertLast(12);
+        list.insertLast(298);
+        list.insertLast(38);
+        list.insertLast(4);
+        list.insertLast(52);
+
+
+        Node mid = middleNode(list.head);
+
+        Node left = list.head;
+        System.out.println("Left");
+        list.displayCustom(left);
+        System.out.println("right");
+        Node right = mid;
+        list.displayCustom(right);
+
+        Node merge = list.merge(left,right);
+        list.displayCustom(merge);
+
+    }
+
+    Node merge(Node list1,Node list2){
+        Node dummyHead = new Node();
+        Node tail = dummyHead;
+        while(list1!= null && list2!=null){
+            if(list1.value < list2.value){
+                tail.next = list1;
+                list1 = list1.next;
+            }else{
+                tail.next = list2;
+                list2 = list2.next;
+            }
+        }
+
+        tail.next = (list1.next != null)? list1 : list2;
+
+        return dummyHead.next;
+    }
+
+    static Node middleNode(Node head) {
+
+        Node fast = head;
+        Node slow = head;
+
+        while(fast != null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    static int lengthOfLL(Node head){
+        int count = 0;
+        while(head!=null){
+            count++;
+            head = head.next;
+        }
+        return count;
+    }
+
+
+
 
 }
 
