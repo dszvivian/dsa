@@ -3,6 +3,7 @@ package com.dsa.linkedlist;
 public class CustomLinkedList {
 
 
+
     private Node head,tail;
     public int size;
 
@@ -179,7 +180,7 @@ public class CustomLinkedList {
     }
 
 
-    private class Node{
+    static class Node{
         private int value;
         private Node next;
 
@@ -201,41 +202,64 @@ public class CustomLinkedList {
 
         CustomLinkedList list = new CustomLinkedList();
 
-        list.insertLast(12);
-        list.insertLast(298);
-        list.insertLast(38);
+
         list.insertLast(4);
-        list.insertLast(52);
+        list.insertLast(22);
+        list.insertLast(1);
+        list.insertLast(61);
+        list.insertLast(18);
+        list.insertLast(12);
 
+        list.display();
 
-        Node mid = middleNode(list.head);
+        list.bubbleSort();
 
-        Node left = list.head;
-        System.out.println("Left");
-        list.displayCustom(left);
-        System.out.println("right");
-        Node right = mid;
-        list.displayCustom(right);
+        list.display();
 
-        Node merge = list.merge(left,right);
-        list.displayCustom(merge);
 
     }
 
-    Node merge(Node list1,Node list2){
+    //region MergeSort
+
+    static Node mergeSort(Node head){
+
+        CustomLinkedList ll = new CustomLinkedList();
+
+
+        if(head==null || head.next==null){
+            return head;
+        }
+
+        Node mid = splitMid(head);
+        Node left = mergeSort(head);
+        Node right = mergeSort(mid);
+
+
+        return merge(left,right);
+    }
+
+    static Node merge(Node list1, Node list2){
         Node dummyHead = new Node();
         Node tail = dummyHead;
         while(list1!= null && list2!=null){
             if(list1.value < list2.value){
                 tail.next = list1;
                 list1 = list1.next;
+                tail = tail.next;
             }else{
                 tail.next = list2;
                 list2 = list2.next;
+                tail = tail.next;
             }
         }
 
-        tail.next = (list1.next != null)? list1 : list2;
+        if(list1 != null){
+            tail.next = list1;
+        }
+
+        if(list2 != null){
+            tail.next = list2;
+        }
 
         return dummyHead.next;
     }
@@ -245,13 +269,35 @@ public class CustomLinkedList {
         Node fast = head;
         Node slow = head;
 
-        while(fast != null && fast.next!=null){
+        while(fast.next.next != null){
             slow = slow.next;
-            fast = fast.next.next;
+            fast = fast.next;
         }
 
-        return slow;
+        Node next = slow.next;
+        slow.next = null;
+
+        return next;
     }
+
+    //breaking of the middle element
+    static Node splitMid(Node head) {
+
+        int mid = (lengthOfLL(head))/2;
+        Node midPrev = null;
+        while(head.next!=null && mid>0){
+            midPrev = head;
+            head = head.next;
+            mid--;
+        }
+
+        System.out.println(midPrev.value);
+        Node midNode = midPrev.next;
+        midPrev.next = null;
+
+        return midNode;
+    }
+
 
     static int lengthOfLL(Node head){
         int count = 0;
@@ -262,7 +308,71 @@ public class CustomLinkedList {
         return count;
     }
 
+    //endregion MergeSort
 
+    //region Bubble Sort
+
+    void bubbleSort(){
+
+        bubbleSort(size,0);
+
+    }
+
+    private void bubbleSort(int row, int col) {
+
+        CustomLinkedList ll = new CustomLinkedList();
+
+        if(row==1){
+            return;
+        }
+
+        if(col<row){
+            Node first = getNode(col);
+            Node second = getNode(col+1);
+
+            if(first.value > second.value){
+                //swap
+                if(first==head){
+                    head = second;
+                    first.next = second.next;
+                    second.next = first;
+                }else if(second==tail){
+                    Node prev = getNode(col-1);
+                    prev.next = second;
+                    tail = first;
+                    first.next = null;
+                    second.next = tail;
+                }else{
+                    Node prev = getNode(col-1);
+                    prev.next = second;
+                    first.next = second.next;
+                    second.next = first;
+                }
+            }
+            bubbleSort(row, col+1);
+        }
+
+
+        bubbleSort(row-1,0);
+    }
+
+    //endregion bubbleSort
+
+
+    //region Recursion Reverse LinkedList
+
+    void reverse(Node head){
+
+        //move until you reach tail
+        if(head.next == null){
+            tail = head;
+        }
+
+        reverse(head.next);
+        tail.next = head;
+        tail = head;
+        tail.next = null;
+    }
 
 
 }
